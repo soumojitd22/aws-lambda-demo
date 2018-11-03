@@ -11,7 +11,7 @@ maven-build:
       - target/deployment/*.jar
 
 aws-deploy:
-  image: alpine:3.7
+  image: python
   stage: deploy
   script:
     - "pip3 install awscli --upgrade"
