@@ -25,4 +25,4 @@ aws-deploy:
     - "export AWS_ACCESS_KEY_ID=AKIAI726JYFRYNPTQOKA"
     - "export AWS_SECRET_ACCESS_KEY=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"
     - "export AWS_DEFAULT_REGION=ap-south-1"
-    - "aws lambda update-function-code --function-name DemoAppLambdaFunction --zip-file deployment/"
+    - "aws lambda update-function-code --function-name DemoAppLambdaFunction --zip-file fileb://deployment/aws-demo.jar"
