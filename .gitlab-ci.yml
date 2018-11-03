@@ -7,13 +7,17 @@ stages:
   - build
   - deploy
 
+variables:
+  DEPLOYMENT_NAME: "aws-demo"
+  DEPLOYMENT_PATH: "deployment/$DEPLOYMENT_NAME.jar"
+
 maven-build:
   image: maven:3-jdk-8
   stage: build
-  script: "mvn package -B"
+  script: "mvn package -B -DdeploymentName=$DEPLOYMENT_NAME"
   artifacts:
     paths:
-      - deployment/
+      - $DEPLOYMENT_PATH
     expire_in: 1 day
 
 aws-deploy:
@@ -22,7 +26,4 @@ aws-deploy:
   script:
     - "pip3 install awscli --upgrade"
     - "aws --version"
-    - "export AWS_ACCESS_KEY_ID=AKIAI726JYFRYNPTQOKA"
-    - "export AWS_SECRET_ACCESS_KEY=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"
-    - "export AWS_DEFAULT_REGION=ap-south-1"
-    - "aws lambda update-function-code --function-name DemoAppLambdaFunction --zip-file fileb://deployment/aws-demo.jar"
+    - "aws lambda update-function-code --function-name DemoAppLambdaFunction --zip-file fileb://$DEPLOYMENT_PATH"

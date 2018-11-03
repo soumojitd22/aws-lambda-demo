@@ -19,6 +19,7 @@
         <aws-lambda.version>1.2.0</aws-lambda.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-shade-plugin.version>2.3</maven-shade-plugin.version>
+        <deploymentName>${project.artifactId}</deploymentName>
     </properties>
 
     <dependencies>
@@ -62,7 +63,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>deployment/${project.artifactId}.jar</outputFile>
+                            <outputFile>deployment/${deploymentName}.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>
