@@ -20,5 +20,5 @@ aws-deploy:
   image: python
   stage: deploy
   script:
-    - "cd /builds/soumojitd/aws-demo"
+    - "cd deployment"
     - "ls -ltr"
