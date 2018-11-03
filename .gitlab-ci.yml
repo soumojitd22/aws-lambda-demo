@@ -8,17 +8,16 @@ stages:
   - deploy
 
 variables:
-  DEPLOYMENT_NAME: "aws-demo"
-  DEPLOYMENT_PATH: "deployment/$DEPLOYMENT_NAME.jar"
+  DEPLOYMENT_FILE: "aws-demo.jar"
 
 maven-build:
   image: maven:3-jdk-8
   stage: build
-  script: "mvn package -B -DdeploymentName=$DEPLOYMENT_NAME"
+  script: "mvn package -B -DdeploymentFile=$DEPLOYMENT_FILE"
   artifacts:
     paths:
-      - $DEPLOYMENT_PATH
-    expire_in: 1 day
+      - $DEPLOYMENT_FILE
+    expire_in: 1 hour
 
 aws-deploy:
   image: python
@@ -26,4 +25,4 @@ aws-deploy:
   script:
     - "pip3 install awscli --upgrade"
     - "aws --version"
-    - "aws lambda update-function-code --function-name DemoAppLambdaFunction --zip-file fileb://$DEPLOYMENT_PATH"
+    - "aws lambda update-function-code --function-name DemoAppLambdaFunction --zip-file fileb://$DEPLOYMENT_FILE"
