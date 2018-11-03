@@ -11,7 +11,7 @@ public class AppRequestHandler implements RequestHandler<DemoRequest, DemoRespon
     public DemoResponse handleRequest(DemoRequest request, Context context) {
         context.getLogger().log(request.toString());
         DemoResponse demoResponse = new DemoResponse();
-        demoResponse.setMessage("Welcome " + request.getName() + "!");
+        demoResponse.setMessage("Welcome " + request.getName() + "!!");
         return demoResponse;
     }
 }
