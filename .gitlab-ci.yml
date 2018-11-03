@@ -14,5 +14,5 @@ aws-deploy:
   image: alpine:3.7
   stage: deploy
   script:
-    - "pip install awscli --upgrade"
+    - "pip3 install awscli --upgrade"
     - "aws --version"
