@@ -20,5 +20,5 @@ aws-deploy:
   image: python
   stage: deploy
   script:
-    - "make build artifacts"
+    - "cd /build"
     - "ls -ltr"
