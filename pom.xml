@@ -62,7 +62,7 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <outputFile>target/deployment/${project.artifactId}.jar</outputFile>
+                            <outputFile>deployment/${project.artifactId}.jar</outputFile>
                         </configuration>
                     </execution>
                 </executions>

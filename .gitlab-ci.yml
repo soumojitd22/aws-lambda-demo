@@ -13,7 +13,7 @@ maven-build:
   script: "mvn package -B"
   artifacts:
     paths:
-      - target/deployment/*.jar
+      - deployment/
     expire_in: 1 day
 
 aws-deploy:
@@ -25,4 +25,4 @@ aws-deploy:
     - "export AWS_ACCESS_KEY_ID=AKIAI726JYFRYNPTQOKA"
     - "export AWS_SECRET_ACCESS_KEY=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"
     - "export AWS_DEFAULT_REGION=ap-south-1"
-    - "aws lambda update-function-code --function-name DemoAppLambdaFunction --zip-file fileb://artifacts.jar"
+    - "artifacts"
