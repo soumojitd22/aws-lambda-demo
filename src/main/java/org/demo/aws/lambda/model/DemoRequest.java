@@ -3,6 +3,7 @@ package org.demo.aws.lambda.model;
 public class DemoRequest {
     private int id;
     private String name;
+    private int score;
 
     public int getId() {
         return id;
@@ -20,11 +21,20 @@ public class DemoRequest {
         this.name = name;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
     @Override
     public String toString() {
         return "DemoRequest{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", score=" + score +
                 '}';
     }
 }
