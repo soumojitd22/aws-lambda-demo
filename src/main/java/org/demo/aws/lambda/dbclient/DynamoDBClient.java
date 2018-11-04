@@ -3,23 +3,31 @@ package org.demo.aws.lambda.dbclient;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClientBuilder;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.document.DynamoDB;
+import com.amazonaws.services.dynamodbv2.document.Item;
+import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import org.demo.aws.lambda.model.DemoRequest;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class DynamoDBClient {
 
-    private static final String TABLE_NAME = "DemoAppData";
-    private static final AmazonDynamoDB DYNAMO_DB = AmazonDynamoDBClientBuilder.defaultClient();
+    private static final String TABLE_NAME = System.getenv("APP_TABLE_NAME");
+    private static final Table APP_TABLE = initializeTable();
+
+    private static Table initializeTable() {
+        AmazonDynamoDB dynamoDBClient = AmazonDynamoDBClientBuilder.defaultClient();
+        DynamoDB dynamoDB = new DynamoDB(dynamoDBClient);
+        return dynamoDB.getTable(TABLE_NAME);
+    }
 
     public static boolean insertData(DemoRequest demoRequest, final LambdaLogger logger) {
         boolean isDataInserted;
         try {
-            DYNAMO_DB.putItem(TABLE_NAME, mapData(demoRequest));
+            APP_TABLE.putItem(new Item()
+                    .withPrimaryKey("Id", demoRequest.getId())
+                    .withString("Name", demoRequest.getName())
+                    .withNumber("Score", demoRequest.getScore()));
             isDataInserted = true;
         } catch (ResourceNotFoundException e) {
             logger.log("Error: The table " + TABLE_NAME + " can't be found");
@@ -29,13 +37,5 @@ public class DynamoDBClient {
             isDataInserted = false;
         }
         return isDataInserted;
-    }
-
-    private static Map<String, AttributeValue> mapData(DemoRequest demoRequest) {
-        Map<String, AttributeValue> mapItem = new HashMap<>();
-        mapItem.put("Id", new AttributeValue(String.valueOf(demoRequest.getId())));
-        mapItem.put("Name", new AttributeValue(demoRequest.getName()));
-        mapItem.put("Score", new AttributeValue(String.valueOf(demoRequest.getScore())));
-        return mapItem;
     }
 }
