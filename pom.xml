@@ -20,7 +20,7 @@
         <aws-sdk-dynamodb.version>1.11.442</aws-sdk-dynamodb.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-shade-plugin.version>2.3</maven-shade-plugin.version>
-        <deploymentFile>${project.artifactId}.jar</deploymentFile>
+        <deploymentFile>${project.build.directory}/deployment/${project.artifactId}.jar</deploymentFile>
     </properties>
 
     <dependencies>

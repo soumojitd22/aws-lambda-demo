@@ -10,9 +10,11 @@ import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import org.demo.aws.lambda.model.DemoRequest;
 
+import static org.demo.aws.lambda.constant.IConstant.*;
+
 public class DynamoDBClient {
 
-    private static final String TABLE_NAME = System.getenv("APP_TABLE_NAME");
+    private static final String TABLE_NAME = System.getenv(APP_TABLE_SYS_VAR_NAME);
     private static final Table APP_TABLE = initializeTable();
 
     private static Table initializeTable() {
@@ -22,20 +24,18 @@ public class DynamoDBClient {
     }
 
     public static boolean insertData(DemoRequest demoRequest, final LambdaLogger logger) {
-        boolean isDataInserted;
         try {
             APP_TABLE.putItem(new Item()
-                    .withPrimaryKey("Id", demoRequest.getId())
-                    .withString("Name", demoRequest.getName())
-                    .withNumber("Score", demoRequest.getScore()));
-            isDataInserted = true;
+                    .withPrimaryKey(APP_TABLE_COL_1, demoRequest.getId())
+                    .withString(APP_TABLE_COL_2, demoRequest.getName())
+                    .withNumber(APP_TABLE_COL_3, demoRequest.getScore()));
         } catch (ResourceNotFoundException e) {
             logger.log("Error: The table " + TABLE_NAME + " can't be found");
-            isDataInserted = false;
+            return false;
         } catch (AmazonServiceException e) {
             logger.log(e.getMessage());
-            isDataInserted = false;
+            return false;
         }
-        return isDataInserted;
+        return true;
     }
 }
