@@ -9,10 +9,12 @@ import org.demo.aws.lambda.processor.AppRequestProcessor;
 
 public class AppRequestHandler implements RequestHandler<DemoRequest, DemoResponse> {
 
+    private AppRequestProcessor appRequestProcessor = new AppRequestProcessor();
+
     @Override
     public DemoResponse handleRequest(DemoRequest request, Context context) {
         LambdaLogger logger = context.getLogger();
         logger.log("Request received : " + request.toString());
-        return new AppRequestProcessor().process(request, logger);
+        return appRequestProcessor.process(request, logger);
     }
 }
