@@ -13,6 +13,6 @@ public class AppRequestHandler implements RequestHandler<DemoRequest, DemoRespon
     public DemoResponse handleRequest(DemoRequest request, Context context) {
         LambdaLogger logger = context.getLogger();
         logger.log("Request received : " + request.toString());
-        return AppRequestProcessor.process(request, logger);
+        return new AppRequestProcessor().process(request, logger);
     }
 }

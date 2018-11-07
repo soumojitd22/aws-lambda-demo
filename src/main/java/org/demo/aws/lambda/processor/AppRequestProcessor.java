@@ -7,9 +7,11 @@ import org.demo.aws.lambda.model.DemoResponse;
 
 public class AppRequestProcessor {
 
-    public static DemoResponse process(DemoRequest demoRequest, final LambdaLogger logger) {
+    private DynamoDBClient dynamoDBClient = new DynamoDBClient();
+
+    public DemoResponse process(DemoRequest demoRequest, final LambdaLogger logger) {
         DemoResponse demoResponse = new DemoResponse();
-        if (DynamoDBClient.insertData(demoRequest, logger))
+        if (dynamoDBClient.insertData(demoRequest, logger))
             demoResponse.setMessage("Hello " + demoRequest.getName() + "!!");
         else
             demoResponse.setMessage("Ahh! Error occurred..");

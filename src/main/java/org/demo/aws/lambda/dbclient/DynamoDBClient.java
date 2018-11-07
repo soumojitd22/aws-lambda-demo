@@ -23,7 +23,7 @@ public class DynamoDBClient {
         return dynamoDB.getTable(TABLE_NAME);
     }
 
-    public static boolean insertData(DemoRequest demoRequest, final LambdaLogger logger) {
+    public boolean insertData(DemoRequest demoRequest, final LambdaLogger logger) {
         try {
             APP_TABLE.putItem(new Item()
                     .withPrimaryKey(APP_TABLE_COL_1, demoRequest.getId())
