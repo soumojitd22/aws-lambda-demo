@@ -17,6 +17,7 @@ public class AppRequestProcessor {
     private DynamoDBClient dynamoDBClient = new DynamoDBClient();
 
     public DemoResponse process(DemoRequest demoRequest) {
+        LOGGER.info("Request received");
         String responseMessage;
         DemoAppEntity appEntity = ObjectMapper.INSTANCE.convertDtoToEntity(demoRequest);
         try {
