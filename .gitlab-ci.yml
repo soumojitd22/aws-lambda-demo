@@ -11,6 +11,9 @@ variables:
   DEPLOYMENT_FILE: "aws-demo.jar"
 
 maven-build:
+  only:
+    refs:
+      - master
   image: maven:3-jdk-11
   stage: build
   script: "mvn package -B -DdeploymentFile=$DEPLOYMENT_FILE"
@@ -20,6 +23,9 @@ maven-build:
     expire_in: 1 hour
 
 aws-deploy:
+  only:
+    refs:
+      - master
   image: python
   stage: deploy
   script:
