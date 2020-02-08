@@ -11,9 +11,7 @@ import org.demo.aws.lambda.model.DemoResponse;
 import static org.demo.aws.lambda.constant.IConstant.FAILURE_MESSAGE;
 
 public class AppRequestProcessor {
-
     private static final Logger LOGGER = LogManager.getLogger(AppRequestProcessor.class);
-
     private DynamoDBClient dynamoDBClient = new DynamoDBClient();
 
     public DemoResponse process(DemoRequest demoRequest) {
