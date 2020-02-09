@@ -8,7 +8,8 @@ stages:
   - deploy
 
 variables:
-  DEPLOYMENT_FILE: "aws-demo.jar"
+  JAR_NAME: "aws-demo"
+  DEPLOYMENT_FILE: $JAR_NAME + "-runner.jar"
 
 maven-build:
   only:
@@ -16,7 +17,7 @@ maven-build:
       - master
   image: maven:3-jdk-11
   stage: build
-  script: "mvn package -B -DdeploymentFile=$DEPLOYMENT_FILE"
+  script: "mvn clean install -B -DjarName=$JAR_NAME"
   artifacts:
     paths:
       - $DEPLOYMENT_FILE
