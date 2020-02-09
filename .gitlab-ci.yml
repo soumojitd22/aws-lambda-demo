@@ -17,7 +17,7 @@ maven-build:
       - master
   image: maven:3-jdk-11
   stage: build
-  script: "mvn clean install -B -DjarName=$JAR_NAME"
+  script: "mvn package -B -DjarName=$JAR_NAME"
   artifacts:
     paths:
       - $DEPLOYMENT_FILE
