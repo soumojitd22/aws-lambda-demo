@@ -10,7 +10,7 @@ stages:
 variables:
   JAR_NAME: "aws-demo"
   DEPLOYMENT_FILE: "$JAR_NAME-runner.jar"
-  DEPLOYMENT_PATH: "./target/$DEPLOYMENT_FILE"
+  DEPLOYMENT_PATH: "./target/$JAR_NAME-runner.jar"
 
 maven-build:
   only:
