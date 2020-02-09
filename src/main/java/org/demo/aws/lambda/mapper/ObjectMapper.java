@@ -9,8 +9,6 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface ObjectMapper {
     ObjectMapper INSTANCE = Mappers.getMapper(ObjectMapper.class);
-
     DemoAppEntity convertDtoToEntity(DemoRequest demoRequest);
-
     DemoResponse generateResponse(String message);
 }
