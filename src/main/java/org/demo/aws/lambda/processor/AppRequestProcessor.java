@@ -8,14 +8,20 @@ import org.demo.aws.lambda.mapper.ObjectMapper;
 import org.demo.aws.lambda.model.DemoRequest;
 import org.demo.aws.lambda.model.DemoResponse;
 
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+
 import static org.demo.aws.lambda.constant.IConstant.FAILURE_MESSAGE;
 
+@ApplicationScoped
 public class AppRequestProcessor {
     private static final Logger LOGGER = LogManager.getLogger(AppRequestProcessor.class);
-    private DynamoDBClient dynamoDBClient = new DynamoDBClient();
+
+    @Inject
+    DynamoDBClient dynamoDBClient;
 
     public DemoResponse process(DemoRequest demoRequest) {
-        LOGGER.info("Request received");
+        LOGGER.info("Request processing starts");
         String responseMessage;
         DemoAppEntity appEntity = ObjectMapper.INSTANCE.convertDtoToEntity(demoRequest);
         try {
