@@ -10,6 +10,7 @@ stages:
 variables:
   JAR_NAME: "aws-demo"
   DEPLOYMENT_FILE: "$JAR_NAME-runner.jar"
+  DEPLOYMENT_PATH: "./target/$DEPLOYMENT_FILE"
 
 maven-build:
   only:
@@ -17,10 +18,10 @@ maven-build:
       - master
   image: maven:3-jdk-11
   stage: build
-  script: "mvn clean install -B -DjarName=$JAR_NAME"
+  script: "mvn package -B -DjarName=$JAR_NAME"
   artifacts:
     paths:
-      - $DEPLOYMENT_FILE
+      - $DEPLOYMENT_PATH
     expire_in: 1 hour
 
 aws-deploy:
