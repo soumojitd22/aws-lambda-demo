@@ -14,18 +14,18 @@ import javax.inject.Named;
 import static org.apache.logging.log4j.CloseableThreadContext.put;
 import static org.apache.logging.log4j.LogManager.getLogger;
 
-@Named("appRequestHandler")
-public class AppRequestHandler implements RequestHandler<DemoRequest, DemoResponse> {
-    private static final Logger LOGGER = getLogger(AppRequestHandler.class);
+//@Named("appRequestHandler")
+public class AppRequestHandler {//implements RequestHandler<DemoRequest, DemoResponse> {
+    //private static final Logger LOGGER = getLogger(AppRequestHandler.class);
 
-    @Inject
+    //@Inject
     AppRequestProcessor appRequestProcessor;
 
-    @Override
+    //@Override
     public DemoResponse handleRequest(DemoRequest request, Context context) {
         try (final Instance ignore = put("requestId", context.getAwsRequestId())) {
-            LOGGER.info("Request received : {}", request);
-            return appRequestProcessor.process(request);
+            //LOGGER.info("Request received : {}", request);
+            return null; //appRequestProcessor.process(request);
         }
     }
 }
